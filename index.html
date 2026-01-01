@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teulis Games</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <header>
+    <div class="logo-area">
+        <img src="images/logo.png" alt="TeulisGames Logo" class="logo" />
+
+      <h1>TeulisGames</h1>
+    </div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#syncope">Syncope Tech</a>
+      <a href="#split-it">Split-IT</a>
+      <a href="#games">Games</a>
+      <a href="#contact">Contact</a>
+    </nav>
+</header>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const navLinks = document.querySelectorAll("nav a");
+  const sections = Array.from(document.querySelectorAll("section[id]"));
+  let allowScrollUpdate = true;
+
+  function getVisibleHeight(section) {
+    const rect = section.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const visibleTop = Math.max(rect.top, 0);
+    const visibleBottom = Math.min(rect.bottom, windowHeight);
+    return Math.max(0, visibleBottom - visibleTop);
+  }
+
+  function updateActiveLink() {
+    if (!allowScrollUpdate) return;
+
+    const scrollTop = window.scrollY;
+    const scrollBottom = scrollTop + window.innerHeight;
+    const documentHeight = document.body.scrollHeight;
+
+    let activeSectionId = "";
+
+    if (scrollTop < 50) {
+      activeSectionId = "home";
+    } else if (scrollBottom >= documentHeight - 2) {
+      activeSectionId = "contact";
+    } else {
+      let maxVisible = 0;
+      sections.forEach(section => {
+        const visible = getVisibleHeight(section);
+        if (visible > maxVisible) {
+          maxVisible = visible;
+          activeSectionId = section.getAttribute("id");
+        }
+      });
+    }
+
+    navLinks.forEach(link => {
+      const href = link.getAttribute("href").substring(1);
+      link.classList.toggle("active", href === activeSectionId);
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveLink);
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      allowScrollUpdate = false;
+
+      navLinks.forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
+
+      setTimeout(() => {
+        allowScrollUpdate = true;
+        updateActiveLink();
+      }, 900); 
+    });
+  });
+
+  updateActiveLink();
+});
+</script>
+
+  <section class="hero" id="home">
+  <canvas id="particleCanvas"></canvas>
+  <h2>Welcome to TeulisGames</h2>
+  <p>Immersive stories, infinite creativity.</p>
+</section>
+
+
+<section id="syncope" class="syncope-tech">
+  <div class="tech-top">
+    <div class="tech-side tech-left">
+      <div class="tech-line">New Technology</div>
+      <div class="tech-line big">SYNCOPE</div>
+    </div>
+
+    <div class="tech-3d">
+      <canvas id="syncopeCanvas"></canvas>
+      <div id="loading-3d">LOADING 3D MODEL...</div>
+    </div>
+
+    <div class="tech-side tech-right">
+      <div class="tech-line">Pulse Sensor</div>
+      <div class="tech-line">A Major Innovation</div>
+      <div class="tech-line">In the Gaming Industry</div>
+    </div>
+  </div>
+  <!-- Alt kısım aynı kalacak -->
+
+  <div class="tech-desc">
+  <h3 class="syncope-title">SYNCOPE</h3>
+
+  <div class="desc-row left-img">
+    <img src="images/syncope-character.png" alt="Syncope Main Character" />
+    <div class="desc-text">
+      <h3>Biofeedback-driven gameplay</h3>
+      <p>
+         SYNCOPE is a biofeedback-driven action game that transforms the player’s real-world heart rate into a core gameplay mechanic.
+  By integrating an Arduino-based pulse sensor directly with the game engine, the game adapts enemy behavior, wave intensity,
+  and tempo in real time.
+      </p>
+    </div>
+  </div>
+
+    <div class="desc-row right-img">
+      <div class="desc-text">
+        <h3>Hardware meets game design</h3>
+        <p>
+          When the player’s heart rate rises, encounters become faster and more aggressive; when it slows, gameplay shifts into a more
+  controlled and tactical flow. This creates a continuous feedback loop between the player’s physical state and the digital world.
+        </p>
+      </div>
+      <img src="images/syncope-device-shot.png" alt="Syncope Device" />
+    </div>
+
+    <div class="download-area">
+      <!-- şimdilik taslak: linki sonra itch.io olunca koyacağız -->
+      <a class="download-link" href="#" onclick="return false;">DOWNLOAD</a>
+      <div class="download-note">Coming soon on itch.io</div>
+    </div>
+  </div>
+</section>
+  <!-- Bitti -->
+<section id="split-it" class="coming-soon">
+  <h2>New Game Coming Soon</h2>
+  <p>SPLIT-IT is launching soon on mobile! Stay tuned for mind-bending split mechanics and thrilling levels.</p>
+  <div class="flip-card-row">
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/Splitit-1-on.png" /></div>
+      <div class="flip-card-back"><img src="images/Splitit-1-arka.png" /></div>
+    </div>
+  </div>
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/Splitit-2-on.png" /></div>
+      <div class="flip-card-back"><img src="images/Splitit-2-arka.png" /></div>
+    </div>
+  </div>
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/Splitit-3-on.png" /></div>
+      <div class="flip-card-back"><img src="images/Splitit-3-arka.png" /></div>
+    </div>
+  </div>
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/Splitit-4-on.png" /></div>
+      <div class="flip-card-back"><img src="images/Splitit-4-arka.png" /></div>
+    </div>
+  </div>
+</div>
+<div class="splitit-teaser">
+  <video autoplay muted loop playsinline>
+    <source src="videos/splitit-teaser.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+</section>
+  <section class="games" id="games">
+    <h2>Our Games</h2>
+   <div class="game-card">
+  <img src="images/syncope-cover.png" alt="SYNCOPE" class="syncope-cover" />
+  <div class="desc">
+    <h3>SYNCOPE</h3>
+    <p>A biofeedback action game that adapts to your real-time heart rate.</p>
+
+    <div class="flip-card-row">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front"><img src="images/syncope-1-on.png" /></div>
+          <div class="flip-card-back"><img src="images/syncope-1-arka.png" /></div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front"><img src="images/syncope-2-on.png" /></div>
+          <div class="flip-card-back"><img src="images/syncope-2-arka.png" /></div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front"><img src="images/syncope-3-on.png" /></div>
+          <div class="flip-card-back"><img src="images/syncope-3-arka.png" /></div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front"><img src="images/syncope-4-on.png" /></div>
+          <div class="flip-card-back"><img src="images/syncope-4-arka.png" /></div>
+        </div>
+      </div>
+    </div>
+
+    <a href="#" class="btn" onclick="return false;">Play on itch.io (soon)</a>
+  </div>
+</div>
+
+    <div class="game-card">
+      <img src="images/awaken0609.png" alt="Awaken of 0609" />
+      <div class="desc">
+        <h3>Awaken of 0609</h3>
+        <p>Play as a robot named 0609 in a dark war-torn world. Solve puzzles and uncover your path using only sound...</p>
+        <div class="flip-card-row">
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/awaken-1.png" /></div>
+      <div class="flip-card-back"><img src="images/awaken-ana.png" /></div>
+    </div>
+  </div>
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/awaken-2.png" /></div>
+      <div class="flip-card-back"><img src="images/awaken-ana.png" /></div>
+    </div>
+  </div>
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/awaken-3.png" /></div>
+      <div class="flip-card-back"><img src="images/awaken-ana.png" /></div>
+    </div>
+  </div>
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/awaken-4.png" /></div>
+      <div class="flip-card-back"><img src="images/awaken-ana.png" /></div>
+    </div>
+  </div>
+</div>
+
+        <a href="https://teulisgames.itch.io/awaken-of-0609" class="btn">Play on itch.io</a>
+      </div>
+    </div>
+    <div class="game-card">
+      <img src="images/silhouette.png" alt="Silhouette" />
+      <div class="desc">
+        <h3>Silhouette</h3>
+        <p>"Silhouette" presents a story where the past and future collide in the dark and mysterious world of Teulis Games...</p>
+        
+        <div class="flip-card-row">
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/silüet-1.png" /></div>
+      <div class="flip-card-back"><img src="images/silüet-ana.png" /></div>
+    </div>
+  </div>
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/silüet-2.png" /></div>
+      <div class="flip-card-back"><img src="images/silüet-ana.png" /></div>
+    </div>
+  </div>
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/silüet-3.png" /></div>
+      <div class="flip-card-back"><img src="images/silüet-ana.png" /></div>
+    </div>
+  </div>
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front"><img src="images/silüet-4.png" /></div>
+      <div class="flip-card-back"><img src="images/silüet-ana.png" /></div>
+    </div>
+  </div>
+</div>
+
+        <a href="https://teulisgames.itch.io/silhouette" class="btn">Play on itch.io</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Contact</h2>
+    <p>
+      Email us: <a href="mailto:teulisgames@gmail.com">teulisgames@gmail.com</a>
+    </p>
+  </section>
+  
+
+  <footer>
+    <p>© 2025 TeulisGames</p>
+  </footer>
+  <script>
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  let particlesArray = [];
+  const mouse = {
+    x: null,
+    y: null,
+    radius: 100
+  };
+
+  canvas.width = window.innerWidth;
+  canvas.height = document.querySelector('.hero').offsetHeight;
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = document.querySelector('.hero').offsetHeight;
+    init();
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.x;
+    mouse.y = e.y - canvas.getBoundingClientRect().top;
+  });
+
+  class Particle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.size = 1.2;
+      this.baseX = x;
+      this.baseY = y;
+      this.density = Math.random() * 30 + 1;
+    }
+
+   draw() {
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+  ctx.shadowBlur = 10;
+  ctx.shadowColor = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+  ctx.closePath();
+  ctx.fill();
+}
+
+
+    update() {
+      let dx = mouse.x - this.x;
+      let dy = mouse.y - this.y;
+      let distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < mouse.radius) {
+        let forceDirectionX = dx / distance;
+        let forceDirectionY = dy / distance;
+        let force = (mouse.radius - distance) / mouse.radius;
+        let directionX = forceDirectionX * force * this.density;
+        let directionY = forceDirectionY * force * this.density;
+
+        this.x -= directionX;
+        this.y -= directionY;
+      } else {
+        if (this.x !== this.baseX) {
+          let dx = this.x - this.baseX;
+          this.x -= dx / 10;
+        }
+        if (this.y !== this.baseY) {
+          let dy = this.y - this.baseY;
+          this.y -= dy / 10;
+        }
+      }
+    }
+  }
+
+  function init() {
+    particlesArray = [];
+    for (let i = 0; i < 400; i++) {
+      let x = Math.random() * canvas.width;
+      let y = Math.random() * canvas.height;
+      particlesArray.push(new Particle(x, y));
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particlesArray.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  init();
+  animate();
+</script>
+<!-- ESKİ LİNKLERİ SİLİN, YERİNE BUNLARI YAZIN -->
+<script src="https://unpkg.com/three@0.161.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.161.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://unpkg.com/three@0.161.0/examples/js/controls/OrbitControls.js"></script>
+
+<!-- 2. SONRA SYNCOPE 3D MODEL KODU -->
+<script>
+function initSyncope() {
+  if (typeof THREE === 'undefined') {
+    setTimeout(initSyncope, 100);
+    return;
+  }
+  
+  console.log('THREE yüklendi! ✅');
+  
+  const section = document.getElementById("syncope");
+  const syncopeCanvas = document.getElementById("syncopeCanvas");
+  const loading = document.getElementById("loading-3d");
+
+  if (!syncopeCanvas) {
+    console.error('Canvas bulunamadı!');
+    return;
+  }
+
+  const renderer = new THREE.WebGLRenderer({ 
+    canvas: syncopeCanvas, 
+    antialias: true, 
+    alpha: true 
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
+  camera.position.set(0, 1.5, 5);
+
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.enablePan = false;
+  controls.minDistance = 3;
+  controls.maxDistance = 10;
+
+  // Işıklar
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+  scene.add(ambientLight);
+  
+  const dirLight = new THREE.DirectionalLight(0xffd9b3, 1.2);
+  dirLight.position.set(3, 5, 3);
+  scene.add(dirLight);
+  
+  const backLight = new THREE.DirectionalLight(0xff9966, 0.6);
+  backLight.position.set(-3, 2, -3);
+  scene.add(backLight);
+
+  function resize() {
+    const parent = syncopeCanvas.parentElement;
+    const w = parent.clientWidth;
+    const h = parent.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  
+  window.addEventListener("resize", resize);
+  resize();
+
+  // Model yükleme
+  let model = null;
+  let modelParts = [];
+  let clock = new THREE.Clock();
+  let animationPhase = 'rotate';
+  let phaseTimer = 0;
+
+  const loader = new THREE.GLTFLoader();
+  
+  loader.load(
+    "models/syncope-device.glb",
+    
+    (gltf) => {
+      model = gltf.scene;
+      scene.add(model);
+
+      // Modeli ortala
+      const box = new THREE.Box3().setFromObject(model);
+      const center = box.getCenter(new THREE.Vector3());
+      model.position.sub(center);
+
+      // Parçaları kaydet
+      model.traverse((child) => {
+        if (child.isMesh) {
+          modelParts.push({
+            mesh: child,
+            originalPosition: child.position.clone(),
+            targetOffset: new THREE.Vector3(
+              (Math.random() - 0.5) * 2,
+              (Math.random() - 0.5) * 2,
+              (Math.random() - 0.5) * 2
+            )
+          });
+        }
+      });
+
+      if (loading) loading.classList.add('hidden');
+      console.log('✅ Model yüklendi');
+    },
+    
+    (progress) => {
+      if (progress.total && loading) {
+        const percent = (progress.loaded / progress.total * 100).toFixed(0);
+        loading.textContent = `LOADING ${percent}%`;
+      }
+    },
+    
+    (error) => {
+      console.error('❌ Model yükleme hatası:', error);
+      if (loading) loading.textContent = 'YÜKLEME BAŞARISIZ';
+    }
+  );
+
+  // Animasyon
+  function animate() {
+    requestAnimationFrame(animate);
+    
+    const delta = clock.getDelta();
+    phaseTimer += delta;
+
+    if (model) {
+      // Sürekli dönüş
+      model.rotation.y += 0.003;
+
+      // Faz geçişleri
+      if (animationPhase === 'rotate' && phaseTimer >= 3) {
+        animationPhase = 'explode';
+        phaseTimer = 0;
+      } else if (animationPhase === 'explode' && phaseTimer >= 2) {
+        animationPhase = 'implode';
+        phaseTimer = 0;
+      } else if (animationPhase === 'implode' && phaseTimer >= 2) {
+        animationPhase = 'rotate';
+        phaseTimer = 0;
+      }
+
+      // Parça animasyonu
+      modelParts.forEach((part) => {
+        if (animationPhase === 'explode') {
+          const progress = Math.min(phaseTimer / 1.5, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          
+          part.mesh.position.x = part.originalPosition.x + part.targetOffset.x * eased;
+          part.mesh.position.y = part.originalPosition.y + part.targetOffset.y * eased;
+          part.mesh.position.z = part.originalPosition.z + part.targetOffset.z * eased;
+        } else if (animationPhase === 'implode') {
+          const progress = Math.min(phaseTimer / 1.5, 1);
+          const eased = progress * progress * progress;
+          
+          part.mesh.position.x = part.originalPosition.x + part.targetOffset.x * (1 - eased);
+          part.mesh.position.y = part.originalPosition.y + part.targetOffset.y * (1 - eased);
+          part.mesh.position.z = part.originalPosition.z + part.targetOffset.z * (1 - eased);
+        }
+      });
+    }
+
+    controls.update();
+    renderer.render(scene, camera);
+  }
+
+  animate();
+}
+
+window.addEventListener('DOMContentLoaded', initSyncope);
+</script>
+
+<script>
+  let lastScrollTop = 0;
+  const header = document.querySelector("header");
+
+  window.addEventListener("scroll", () => {
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentScroll > lastScrollTop) {
+      // aşağı kayıyor
+      header.classList.add("hide");
+    } else {
+      // yukarı kayıyor
+      header.classList.remove("hide");
+    }
+
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // scroll 0'ın altına düşmesin
+  });
+</script>
+
+ <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const splitItSection = document.getElementById("split-it");
+      window.addEventListener("scroll", () => {
+        const rect = splitItSection.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight && rect.bottom > 200;
+        if (inView) {
+          splitItSection.classList.add("active");
+        } else {
+          splitItSection.classList.remove("active");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
