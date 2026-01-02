@@ -12,7 +12,6 @@
   <header>
     <div class="logo-area">
         <img src="images/logo.png" alt="TeulisGames Logo" class="logo" />
-
       <h1>TeulisGames</h1>
     </div>
     <nav>
@@ -97,22 +96,35 @@ document.addEventListener("DOMContentLoaded", () => {
 <section id="syncope" class="syncope-tech">
   <div class="tech-top">
     <div class="tech-side tech-left">
-      <div class="tech-line">New Technology</div>
-      <div class="tech-line big">SYNCOPE</div>
+      <div class="tech-line">NEXT-GEN TECHNOLOGY</div>
+      <div class="tech-line">FIRST IN THE WORLD</div>
     </div>
 
     <div class="tech-3d">
-      <canvas id="syncopeCanvas"></canvas>
-      <div id="loading-3d">LOADING 3D MODEL...</div>
+      <model-viewer
+        src="models/syncope-device.glb"
+        autoplay
+        loop
+        auto-rotate
+        rotation-per-second="12deg"
+        camera-controls
+        disable-zoom
+        interaction-prompt="none"
+        camera-orbit="-60deg 62deg 1000m"
+        camera-target="0m 0m 0m"
+        field-of-view="8deg"
+        environment-image="neutral"
+        exposure="1.05"
+        shadow-intensity="0.6"
+        style="width:100%; height:100%;">
+      </model-viewer>
     </div>
 
     <div class="tech-side tech-right">
-      <div class="tech-line">Pulse Sensor</div>
-      <div class="tech-line">A Major Innovation</div>
-      <div class="tech-line">In the Gaming Industry</div>
+      <div class="tech-line">HEART RATE SENSOR</div>
+      <div class="tech-line">REVOLUTIONARY GAMEPLAY</div>
     </div>
   </div>
-  <!-- Alt kısım aynı kalacak -->
 
   <div class="tech-desc">
   <h3 class="syncope-title">SYNCOPE</h3>
@@ -122,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="desc-text">
       <h3>Biofeedback-driven gameplay</h3>
       <p>
-         SYNCOPE is a biofeedback-driven action game that transforms the player’s real-world heart rate into a core gameplay mechanic.
+         SYNCOPE is a biofeedback-driven action game that transforms the player's real-world heart rate into a core gameplay mechanic.
   By integrating an Arduino-based pulse sensor directly with the game engine, the game adapts enemy behavior, wave intensity,
   and tempo in real time.
       </p>
@@ -133,21 +145,20 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="desc-text">
         <h3>Hardware meets game design</h3>
         <p>
-          When the player’s heart rate rises, encounters become faster and more aggressive; when it slows, gameplay shifts into a more
-  controlled and tactical flow. This creates a continuous feedback loop between the player’s physical state and the digital world.
+          When the player's heart rate rises, encounters become faster and more aggressive; when it slows, gameplay shifts into a more
+  controlled and tactical flow. This creates a continuous feedback loop between the player's physical state and the digital world.
         </p>
       </div>
       <img src="images/syncope-device-shot.png" alt="Syncope Device" />
     </div>
 
     <div class="download-area">
-      <!-- şimdilik taslak: linki sonra itch.io olunca koyacağız -->
       <a class="download-link" href="#" onclick="return false;">DOWNLOAD</a>
       <div class="download-note">Coming soon on itch.io</div>
     </div>
   </div>
 </section>
-  <!-- Bitti -->
+
 <section id="split-it" class="coming-soon">
   <h2>New Game Coming Soon</h2>
   <p>SPLIT-IT is launching soon on mobile! Stay tuned for mind-bending split mechanics and thrilling levels.</p>
@@ -184,6 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
   </video>
 </div>
 </section>
+
   <section class="games" id="games">
     <h2>Our Games</h2>
    <div class="game-card">
@@ -404,176 +416,6 @@ document.addEventListener("DOMContentLoaded", () => {
   init();
   animate();
 </script>
-<!-- ESKİ LİNKLERİ SİLİN, YERİNE BUNLARI YAZIN -->
-<script src="https://unpkg.com/three@0.161.0/build/three.min.js"></script>
-<script src="https://unpkg.com/three@0.161.0/examples/js/loaders/GLTFLoader.js"></script>
-<script src="https://unpkg.com/three@0.161.0/examples/js/controls/OrbitControls.js"></script>
-
-<!-- 2. SONRA SYNCOPE 3D MODEL KODU -->
-<script>
-function initSyncope() {
-  if (typeof THREE === 'undefined') {
-    setTimeout(initSyncope, 100);
-    return;
-  }
-  
-  console.log('THREE yüklendi! ✅');
-  
-  const section = document.getElementById("syncope");
-  const syncopeCanvas = document.getElementById("syncopeCanvas");
-  const loading = document.getElementById("loading-3d");
-
-  if (!syncopeCanvas) {
-    console.error('Canvas bulunamadı!');
-    return;
-  }
-
-  const renderer = new THREE.WebGLRenderer({ 
-    canvas: syncopeCanvas, 
-    antialias: true, 
-    alpha: true 
-  });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
-  camera.position.set(0, 1.5, 5);
-
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.enablePan = false;
-  controls.minDistance = 3;
-  controls.maxDistance = 10;
-
-  // Işıklar
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-  scene.add(ambientLight);
-  
-  const dirLight = new THREE.DirectionalLight(0xffd9b3, 1.2);
-  dirLight.position.set(3, 5, 3);
-  scene.add(dirLight);
-  
-  const backLight = new THREE.DirectionalLight(0xff9966, 0.6);
-  backLight.position.set(-3, 2, -3);
-  scene.add(backLight);
-
-  function resize() {
-    const parent = syncopeCanvas.parentElement;
-    const w = parent.clientWidth;
-    const h = parent.clientHeight;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-  }
-  
-  window.addEventListener("resize", resize);
-  resize();
-
-  // Model yükleme
-  let model = null;
-  let modelParts = [];
-  let clock = new THREE.Clock();
-  let animationPhase = 'rotate';
-  let phaseTimer = 0;
-
-  const loader = new THREE.GLTFLoader();
-  
-  loader.load(
-    "models/syncope-device.glb",
-    
-    (gltf) => {
-      model = gltf.scene;
-      scene.add(model);
-
-      // Modeli ortala
-      const box = new THREE.Box3().setFromObject(model);
-      const center = box.getCenter(new THREE.Vector3());
-      model.position.sub(center);
-
-      // Parçaları kaydet
-      model.traverse((child) => {
-        if (child.isMesh) {
-          modelParts.push({
-            mesh: child,
-            originalPosition: child.position.clone(),
-            targetOffset: new THREE.Vector3(
-              (Math.random() - 0.5) * 2,
-              (Math.random() - 0.5) * 2,
-              (Math.random() - 0.5) * 2
-            )
-          });
-        }
-      });
-
-      if (loading) loading.classList.add('hidden');
-      console.log('✅ Model yüklendi');
-    },
-    
-    (progress) => {
-      if (progress.total && loading) {
-        const percent = (progress.loaded / progress.total * 100).toFixed(0);
-        loading.textContent = `LOADING ${percent}%`;
-      }
-    },
-    
-    (error) => {
-      console.error('❌ Model yükleme hatası:', error);
-      if (loading) loading.textContent = 'YÜKLEME BAŞARISIZ';
-    }
-  );
-
-  // Animasyon
-  function animate() {
-    requestAnimationFrame(animate);
-    
-    const delta = clock.getDelta();
-    phaseTimer += delta;
-
-    if (model) {
-      // Sürekli dönüş
-      model.rotation.y += 0.003;
-
-      // Faz geçişleri
-      if (animationPhase === 'rotate' && phaseTimer >= 3) {
-        animationPhase = 'explode';
-        phaseTimer = 0;
-      } else if (animationPhase === 'explode' && phaseTimer >= 2) {
-        animationPhase = 'implode';
-        phaseTimer = 0;
-      } else if (animationPhase === 'implode' && phaseTimer >= 2) {
-        animationPhase = 'rotate';
-        phaseTimer = 0;
-      }
-
-      // Parça animasyonu
-      modelParts.forEach((part) => {
-        if (animationPhase === 'explode') {
-          const progress = Math.min(phaseTimer / 1.5, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          
-          part.mesh.position.x = part.originalPosition.x + part.targetOffset.x * eased;
-          part.mesh.position.y = part.originalPosition.y + part.targetOffset.y * eased;
-          part.mesh.position.z = part.originalPosition.z + part.targetOffset.z * eased;
-        } else if (animationPhase === 'implode') {
-          const progress = Math.min(phaseTimer / 1.5, 1);
-          const eased = progress * progress * progress;
-          
-          part.mesh.position.x = part.originalPosition.x + part.targetOffset.x * (1 - eased);
-          part.mesh.position.y = part.originalPosition.y + part.targetOffset.y * (1 - eased);
-          part.mesh.position.z = part.originalPosition.z + part.targetOffset.z * (1 - eased);
-        }
-      });
-    }
-
-    controls.update();
-    renderer.render(scene, camera);
-  }
-
-  animate();
-}
-
-window.addEventListener('DOMContentLoaded', initSyncope);
-</script>
 
 <script>
   let lastScrollTop = 0;
@@ -583,14 +425,12 @@ window.addEventListener('DOMContentLoaded', initSyncope);
     let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
     if (currentScroll > lastScrollTop) {
-      // aşağı kayıyor
       header.classList.add("hide");
     } else {
-      // yukarı kayıyor
       header.classList.remove("hide");
     }
 
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // scroll 0'ın altına düşmesin
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
   });
 </script>
 
@@ -608,6 +448,9 @@ window.addEventListener('DOMContentLoaded', initSyncope);
       });
     });
   </script>
+  <script type="module"
+  src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+</script>
 </body>
 
 </html>

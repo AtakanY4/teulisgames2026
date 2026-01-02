@@ -55,15 +55,15 @@ body {
   .hero {
   position: relative;
   text-align: center;
-  min-height: 150px; /* daha geniş hale getiriyoruz */
+  min-height: 150px;
   padding: 180px 30px 120px;
-  background-color: rgba(0, 0, 0, 0.7); /* daha belirgin siyah */
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6); /* derinlik katıyor */
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
 }
 .hero h2 {
   font-size: 2.5rem;
@@ -173,7 +173,7 @@ body {
     text-decoration: none;
     font-weight: bold;
     font-size: 0.9rem;
-    word-break: break-word; /* mobilde taşma olmasın */
+    word-break: break-word;
   }
   
   .contact a:hover {
@@ -292,17 +292,17 @@ body {
   margin: 30px auto 0;
   border-radius: 12px;
   overflow: hidden;
-  background-color: #000; /* varsa transparan kısımlar belli olmasın */
+  background-color: #000;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  padding: 0; /* burayı ekle veya sıfırla */
-  border: 2px solid #fff; /* çerçeveyi buraya al */
+  padding: 0;
+  border: 2px solid #fff;
 }
 
 .splitit-teaser video {
   width: 100%;
   height: auto;
   display: block;
-  border: none; /* video üzerindeki border'ı kaldır */
+  border: none;
 }
 
 .hero h2::after,
@@ -348,80 +348,154 @@ header.hide {
   top: -100px;
   opacity: 0;
 }
-html, body {
-  min-width: 768px !important;
-  overflow-x: auto;
-}
-/* ===== SYNCOPE TECH SECTION ===== */
+
+ /*===== SYNCOPE TECH SECTION ===== */
 .syncope-tech{
-  padding: 80px 20px 60px;
-  max-width: 1200px;
+  padding: 60px 20px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
+/* Grid layout: sol yazılar | 3D model | sağ yazılar */
 .tech-top{
-  position: relative;
   display: grid;
-  grid-template-columns: 1fr minmax(320px, 520px) 1fr;
+  grid-template-columns: 280px 1fr 280px;
+  gap: 30px;
   align-items: center;
-  gap: 18px;
-  min-height: 520px;
+  margin-bottom: 40px;
+  padding: 40px;
+  border-radius: 18px;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 30px rgba(39, 39, 39, 0.35);
+  backdrop-filter: blur(6px);
 }
 
 .tech-3d{
-  position: relative;
   width: 100%;
   height: 520px;
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
-  background: rgba(0,0,0,0.35);
-  box-shadow: 0 0 18px rgba(0,0,0,0.35);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#syncopeCanvas{
-  width: 100%;
-  height: 100%;
+.tech-3d model-viewer{
+  width: 100% !important;
+  height: 100% !important;
   display: block;
 }
 
+/* Yan yazılar */
 .tech-side{
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  pointer-events: none; /* model mouse kontrolünü bozmasın */
-  opacity: 0;
-  transform: translateX(0);
+  gap: 25px;
+  position: relative;
+  min-height: 180px;
+  justify-content: center;
 }
 
 .tech-left{
   align-items: flex-start;
-  justify-content: center;
-  transform: translateX(-28px);
+  text-align: left;
 }
 
 .tech-right{
   align-items: flex-end;
-  justify-content: center;
-  transform: translateX(28px);
+  text-align: right;
 }
 
 .tech-line{
   color: #ffd9b3;
-  font-size: 1.05rem;
-  letter-spacing: 0.5px;
-  text-shadow: 0 0 12px rgba(0,0,0,0.6);
-  max-width: 340px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-shadow: 
+    0 0 8px rgba(255, 194, 133, 0.3),
+    0 2px 6px rgba(0, 0, 0, 0.6);
+  line-height: 1.5;
+  opacity: 0;
+  position: absolute;
+  animation: slideInOut 8s ease-in-out infinite;
+  background: linear-gradient(135deg, #ffd9b3 0%, #ffb380 50%, #ffd9b3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  filter: drop-shadow(0 0 6px rgba(255, 194, 133, 0.2));
 }
 
-.tech-line.big{
-  font-size: 1.7rem;
-  color: #fff;
+/* İlk yazı çifti - hemen başlar */
+.tech-left .tech-line:nth-child(1),
+.tech-right .tech-line:nth-child(1){
+  animation-delay: 0s;
 }
 
-.syncope-tech.inview .tech-side{
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+/* İkinci yazı çifti - 4 saniye sonra */
+.tech-left .tech-line:nth-child(2),
+.tech-right .tech-line:nth-child(2){
+  animation-delay: 4s;
+}
+
+/* Gelip gitme animasyonu - 8 saniye toplam döngü */
+@keyframes slideInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    filter: blur(3px) drop-shadow(0 0 6px rgba(255, 194, 133, 0.2));
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0) drop-shadow(0 0 8px rgba(255, 194, 133, 0.3));
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0) drop-shadow(0 0 8px rgba(255, 194, 133, 0.3));
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+    filter: blur(3px) drop-shadow(0 0 6px rgba(255, 194, 133, 0.2));
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+}
+
+/* Parlama efekti */
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+/* Responsive */
+@media (max-width: 1000px){
+  .tech-top{
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .tech-3d{
+    height: 360px;
+    max-width: 520px;
+  }
+}
+#syncopeCanvas{
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 /* Alt açıklama blokları */
@@ -473,13 +547,13 @@ html, body {
 }
 
 .desc-text p{
-  font-size: 15.4px;     /* 15–16 arası ideal */
-  line-height: 2;     /* okunurluk artar */
-  color: rgba(255,255,255,0.82); /* daha temiz kontrast */
+  font-size: 15.4px;
+  line-height: 2;
+  color: rgba(255,255,255,0.82);
   margin-top: 10px;
 }
 .desc-text{
-  max-width: 600px;   /* 480-560 arası deneyebilirsin */
+  max-width: 600px;
 }
 .desc-text{
   background: rgba(0,0,0,0.18);
