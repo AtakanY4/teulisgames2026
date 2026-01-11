@@ -668,3 +668,8 @@ header.hide {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 1; }
 }
+.tech-3d, .tech-3d model-viewer{
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
